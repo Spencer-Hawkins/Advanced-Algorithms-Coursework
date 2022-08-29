@@ -1,1 +1,62 @@
-//
+//https://leetcode.com/problems/next-greater-element-i/
+
+//Line of Code //O(RunTime), O(Space)
+//n = length of nums2
+//L = length of nums1
+//Overall Runtime: 
+/*
+The First For Loop of the function has a worst case runtime of N! since the while loop after would traverse 
+to the end of the array on every iteration unless a greater element is found.
+The best case runtime for this dataset comes when the nums2[i+1] is greater than nums2[1]. Data structured in this 
+manner would have a runtime of O(n)
+*/
+//Memory Usage
+/*
+This algorithm utilizes one Hashmap that is O(n) size as well as one array that is O(m) with m being the size of nums1
+*/
+
+//General Explanation
+/*
+This function creates a Hashmap and then iterates through the entirety of the second input array to find the Next Greater element as defined in the problem from the 
+link above. This next greater element is found for each value in the second input array and then stored in the HashMap with the Value being the next Greater element 
+and the key being the element it is greater than. After the HashMap is constructed, a single loop through the first array allows the final array to be returned to be 
+constructed by pulling the NextGreater elements we stored in our HashMap.
+
+This algorithm proceeds in a greedy fashion through us focusing on the single condition. We proceed through the nums2 array from left to right and search for a value 
+higher than the index we started at
+
+*/
+
+
+class Solution {
+public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+int[] ans = new int[nums1.length]; //O(1), O(n)
+
+    boolean bool = false; //O(1), O(1)
+    int k=0; //O(1), O(1)
+    HashMap<Integer,Integer> map = new HashMap<>(); //O(1), O(1)
+    for(int i=0;i<nums2.length;i++){ //O(n), O(1)
+        k=i+1; //O(1)
+        bool=false; //O(1)
+       while(k<nums2.length){ //O(n-k) 
+           if(nums2[i]<nums2[k]){ //O(1)
+               map.put(nums2[i],nums2[k]); //O(1), O(1)
+               bool=true; //O(1)
+               break; //O(1)
+           }
+           else{
+               k++; //O(1)
+           }
+       }
+        if(bool!=true){ //O(1)
+             map.put(nums2[i],-1); //O(1), //O(1)
+        }
+    }
+    for(int i=0;i<nums1.length;i++){ //O(L), O(1)
+        ans[i] = map.get(nums1[i]); //O(1)
+    }
+  return ans; //O(1)
+                          
+    
+}
+}
