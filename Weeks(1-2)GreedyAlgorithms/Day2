@@ -1,1 +1,39 @@
-//meow
+//https://leetcode.com/problems/next-greater-element-ii
+
+//Line of Code //O(RunTime), O(Space)
+//n = length of nums2
+//L = length of nums1
+//Time Complexity O(n)
+    //A nested for loop that iterates over the length of the input array twice
+//Space Complexity O(n)
+    //An array is constructed that is the size of the input array as well as a stack is initialized which can grow to no larger than the input array.
+
+//General Explanation: 
+/*
+The algorithm begins by creating the array of length N filled with -1.
+The Outer For Loop of the function allows us to pass over the input array twice.
+In The first loop we check if we've found the next greater element. We check this by storing all values in the array in our stack. 
+We remove items from the stack till we find one that is greater than the current value. If the stack is emptied, than we've found no greater value
+at this point.
+The second outer loop is necessary because the problem allows for us to think of the array as circular with the ends wrapping around. A value from the end 
+of the array may be the next largest element for one of the first elements in the array. This is why the second loop is needed to check for all the values that 
+have not yet already received a next largest element.
+*/
+
+
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+
+        Stack<Integer> stacker = new Stack<>();
+        int[] res = new int[nums.length];
+        Arrays.fill(res, -1);
+        for (int cnt = 0; cnt < 2; cnt++){
+            for (int i = 0; i < nums.length; i++){
+                while (!stacker.isEmpty() && nums[stacker.peek()] < nums[i])
+                    res[stacker.pop()] = nums[i];
+                if (cnt == 0) stacker.push(i);
+             }       
+        }
+        return res;
+    }
+}
