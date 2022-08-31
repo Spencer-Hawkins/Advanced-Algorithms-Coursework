@@ -1,1 +1,59 @@
-//meow
+//https://leetcode.com/problems/next-greater-element-ii
+
+
+//Time Complexity O(nlogn)--Worst Case, Best Case--O(n)
+    //A while loop iterates from the end of the number to the beginning, performs a constant time swap, and then one final sorting of a portion of the array occurs
+    //in O(nlogn) time
+    //Space Complexity O(n)
+    //An array is constructed that is the length of the number of digits in the input number n
+
+//General Explanation: 
+/*
+The algorithm begins by creating the char array of length n.
+
+The algorithm then proceeds from the end of the number to the beginning searching for the first decreasing integer where num[i]<num[i+1]
+This value and index is stored and then swapped with the first occuring instance of the next largest integer in the array.
+The array is then sorted in increasing order for all indices after the first character swaped.
+Congrats! This is the number to return
+
+*/
+
+
+class Solution {
+   
+    // 7 3 6 5 1
+    public int nextGreaterElement(int n) {
+        char[] number = (n + "").toCharArray();
+        
+       int i = number.length - 1,j = number.length-1 ;
+        while(i>=0){
+            if(i+1 < number.length && number[i]<number[i+1]){
+                int min = Integer.MAX_VALUE,minIndex=0;
+                
+                for(int k=i+1;k<number.length;k++){
+                    if(number[k]<min && number[k]>number[i] ){
+                        min = number[k];
+                        minIndex = k;
+                    }
+                }
+                //Swap
+                char temp = number[i];
+                number[i] = (char)min;
+                number[minIndex] = temp;
+                break;
+            }
+            i--;
+        }
+        //if not found return
+        if(i == -1)
+            return -1;
+        
+        Arrays.sort(number,i+1,number.length);
+        long ans = Long.parseLong(new String(number));
+        return ans>Integer.MAX_VALUE?-1:(int)ans;
+    }
+}
+
+
+
+//References: https://www.youtube.com/watch?v=fOeD3CW2c7c, https://leetcode.com/problems/next-greater-element-iii/discuss/2484547/1ms-Simple-java-Solution-with-explanation-or-2-pointer-approach
