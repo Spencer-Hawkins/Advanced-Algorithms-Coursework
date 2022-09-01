@@ -1,0 +1,52 @@
+//https://leetcode.com/problems/make-the-string-great
+
+
+//Time Complexity O(n)
+    //A single for loop iterates across the input string s from start to end
+//Space Complexity O(n)
+    //A stringBuilder is built that is dependent on the size of the input string s 
+    
+/*
+General Explanation: 
+
+The algorithm begins by initiating a stringBuilder.
+
+The algorithm then proceeds in a for loop through the input string s. At each iteration we first check if our StringBuilder is empty. If so, we add our
+selected character to the stringBuilder.
+If string Builder wasn't empty, we check to see if our current Char
+is equal to the opposite case version of the last char we added to our string builder. This is done by checking "c!=pre && c == Character.toUpperCase(pre)"
+The opposite condition is also checked with Character.toLowerCase. If either of these conditions evaluates to true than the last Character added to the stringBuilder
+is removed and the new character is not added.
+
+end of the number to the beginning searching for the first decreasing integer where num[i]<num[i+1]
+This value and index is stored and then swapped with the first occuring instance of the next largest integer in the array.
+The array is then sorted in increasing order for all indices after the first character swaped.
+Congrats! This is the number to return
+
+*/
+
+class Solution {
+    public String makeGood(String s) {
+        StringBuilder sbuilder = new StringBuilder();
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(sbuilder.length()==0){
+                sbuilder.append(c);
+            }else{
+                char pre = sbuilder.charAt(sbuilder.length() -1);
+                if((c!=pre&& c == Character.toUpperCase(pre))||
+                  (c!=pre&&c == Character.toLowerCase(pre))){
+                    sbuilder.deleteCharAt(sbuilder.length() -1);
+                }else{
+                    sbuilder.append(c);
+                }
+            }
+        }
+        return sbuilder.toString();
+    }
+}
+
+
+
+
+//References: https://leetcode.com/problems/make-the-string-great/discuss/2508662/java-solution-no-stack
