@@ -1,0 +1,42 @@
+//https://leetcode.com/problems/greatest-common-divisor-of-strings/submissions/
+
+/*
+Overall Runtime(1) there are four possible conditionals each run in constant time
+Overall Space(N/M) A call stack can build up to as many levels deep as str1 is longer than str2
+
+
+
+General Explanation:
+   1-if the longer string is in the second position, make new function call switching the two words
+   2-if the first string doesn't begin with the second string, return an empty string
+   3-if we have an empty string for the second string, return the remaining first string
+   4-make new function call with str1 being a substring after the point where str2 was contains withinit.
+
+This algorithm removes the chunk of the string that both strings share until either nothing is left and 
+we succeeded or there was not a repeating substring to be left with
+
+*/
+
+
+
+
+
+
+
+class Solution {
+    public String gcdOfStrings(String str1, String str2) {
+        if(str1.length() < str2.length()){
+            return gcdOfStrings(str2,str1);
+        }else if(!str1.startsWith(str2)){
+            return "";
+        }else if(str2.length() == 0){
+            return str1;
+        }else{
+            return gcdOfStrings(str1.substring(str2.length()),str2);
+        }
+    }
+}
+
+
+
+Reference https://leetcode.com/problems/greatest-common-divisor-of-strings/discuss/2496004/100-EASY-JAVA-solution-_
