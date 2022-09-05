@@ -1,0 +1,35 @@
+//Problem: https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence
+
+
+/*
+Runtime: O(nlog(n))-- The most computational intense part of the algorithm is the initial sorting of the array. After which a single for loop is needed to 
+                find the solution to the problem. 
+Memory: O(1)-- The function allocates a few constant variables to keep track of pointers and a stored Diff value, but no new data structures input size 
+                dependent are created.
+                
+  Brief Explanation:
+      The function works because the only way an arithmetic sequence can be maintained is within a sorted array. The difference should be the 
+      same between all consecutive pairs of indices, so this value is stored in a constant to reduce the amount of lookups. If any pairs have a different difference
+      false is returned, otherwise the sorted array is indeed an arithmetic progression and we return true.
+      
+      My original confusion with this problem was that I thought it was asking to find if any two pairs of indices could be found to form an arithmetic 
+      progression. That is a much different problem and with much more complexity.
+     
+*/
+
+
+class Solution {
+    public boolean canMakeArithmeticProgression(int[] arr) {
+        Arrays.sort(arr);
+            
+        int diff=arr[1]-arr[0];
+    
+        for(int i=1; i<arr.length-1; i++){
+            if(arr[i+1]-arr[i]!=diff){
+                return false;
+            }
+        }
+        return true;
+    
+    }
+}
