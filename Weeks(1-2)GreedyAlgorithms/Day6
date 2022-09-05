@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/convert-bst-to-greater-tree/discuss/2526122/java-solution
+
+/*
+Overall Runtime: O(1) -- A Constant amount of assignments and operations in each function call
+Overall Storage: O(n) -- Depending on the construction of the tree, their can be anywhere from O(log(n)) to O(n) 
+                         function calls building up on the call stack
+                         
+Function Description:
+      The function keeps a running tally of the sum of all values in the tree. It first finds the utmost right value by traversing all of the way to the rightmost leaf, 
+      and then that value is added to each current node's existing value in an in order traversal.
+      The root node of the tree is then returned after the transformation is complete.
+*/
+
+
+class Solution {
+    int sum = 0;
+    
+    public TreeNode convertBST(TreeNode root) {
+        // use inorder traversal to traverse backwards so it's in descending order
+        inorderTraverse(root);
+        return root;
+    }
+    
+    private void inorderTraverse(TreeNode root) {
+        if (root == null) return;
+        inorderTraverse(root.right);
+        sum += root.val;
+        root.val = sum;
+        inorderTraverse(root.left);
+    }
+    
+    
+}
