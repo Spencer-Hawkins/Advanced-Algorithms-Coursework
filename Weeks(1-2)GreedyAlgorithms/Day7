@@ -1,0 +1,132 @@
+//https://leetcode.com/problems/greatest-sum-divisible-by-three/
+//Resource--Refer To: https://leetcode.com/problems/greatest-sum-divisible-by-three/discuss/2517145/JAVA-MEMOIZATION
+
+
+class Solution {
+    public int maxSumDivThree(int[] nums) {
+        
+        // Type 1 number : gives remainder 0 when div by 3 -->Eg. 3,6,21 etc
+        // Type 2 number : gives remainder 1 when div by 3 -->Eg. 4,7,10,22 etc
+        // Type 3 number : gives remainder 2 when div by 3 -->Eg. 5,6,23,41 etc
+
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        if(sum%3==0){
+            return sum; //--> this should be clear nothing to explain
+        }
+        
+        
+        // this part of code basically finds the smallest 2 (Type 1) numbers from the array
+        // ones1 is the smallest and ones2 is the second smallest
+        // if the array doesnt contain any num of this type or just one number of this type
+        // then the nums would remain at Integer.MAX_VALUE
+        int ones1=Integer.MAX_VALUE,ones2=Integer.MAX_VALUE;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]%3==1){
+                if(ones1==Integer.MAX_VALUE){
+                    ones1=nums[i];
+                }
+                else{
+                    if(nums[i]<ones1){
+                        ones2=ones1;
+                        ones1=nums[i];
+                    }
+                    else if(nums[i]<ones2){
+                        ones2=nums[i];
+                    }
+                }
+            }
+        }
+        
+        
+        // this part of code finds the smallest 2 (Type 2) numbers from the array
+        // twos1 is the smallest and twos2 is the second smallest
+        // if the array doesnt contain any num of this type or just one number of this type
+        // then the nums would remain at Integer.MAX_VALUE
+        int twos1=Integer.MAX_VALUE,twos2=Integer.MAX_VALUE;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]%3==2){
+                if(twos1==Integer.MAX_VALUE){
+                    twos1=nums[i];
+                }
+                else{
+                    if(nums[i]<twos1){
+                        twos2=twos1;
+                        twos1=nums[i];
+                    }
+                    else if(nums[i]<twos2){
+                        twos2=nums[i];
+                    }
+                }
+            }
+        }
+        
+        // so the idea behind this is that if a (Type 1) number
+        // in our case sum (declared at the top) which should be highest but due to it not
+        // div by three (giving a remainder 1) we have 2 ways to make it divisible by three
+        // 1) We subtract 1 (Type 1) number check it out --> (61-31=30),(127-4=123),etc
+        //    you can confirm
+        // 2) We subtract 2 (Type 2) numbers check it out --> (61-32-5=24),(43-5-11=27),etc
+        //    you can confirm
+        // we do both these operations and find which one gives the maximum value 
+        if(sum%3==1){
+            
+            int sum1; //--> subtract 1 (Type 1) number;
+            //we need at least 1 (Type 1) number or else 
+            //sum (which is not div by 3 RN) will not change
+            if(ones1==Integer.MAX_VALUE){
+                sum1=0;
+            }
+            else{
+                sum1=sum-ones1;
+            }
+            
+            int sum2; //--> subtract 2 (Type 1) numbers;
+            //we need at least 2 (Type 2) numbers or else 
+            //sum (which is not div by 3 RN) will not change
+            if(twos1==Integer.MAX_VALUE || twos2==Integer.MAX_VALUE){
+                sum2=0;
+            }
+            else{
+                sum2=sum-twos1-twos2;
+            }
+            
+            //returning the max out of the two
+            return Math.max(sum1,sum2);
+        }
+        
+        
+        // so the idea behind this is that if a (Type 2) number
+        // in our case sum (declared at the top) which should be highest but due to it not
+        // div by three (giving a remainder 2) we have 2 ways to make it divisible by three
+        // 1) We subtract 2 (Type 1) numbers check it out --> (62-31-5=36),(47-4-4=39),etc
+        //    you can confirm
+        // 2) We subtract 1 (Type 2) number check it out --> (62-32=30),(44-5=39),etc
+        //    you can confirm
+        // we do both these operations and find which one gives the maximum value 
+        else{
+            int sum1; //--> subtract 2 (Type 1) numbers;
+            if(ones1==Integer.MAX_VALUE || ones2==Integer.MAX_VALUE){
+                sum1=0;
+            }
+            else{
+                sum1=sum-ones1-ones2;
+            }
+            
+            int sum2; //--> subtract 1 (Type 2) number;
+            if(twos1==Integer.MAX_VALUE){
+                sum2=0;
+            }
+            else{
+                sum2=sum-twos1;
+            }
+            
+            // returning the max out of the two
+            return Math.max(sum1,sum2);
+        }
+    } 
+}
+
+
