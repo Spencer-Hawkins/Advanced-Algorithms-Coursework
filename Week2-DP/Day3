@@ -1,0 +1,24 @@
+//Problem: https://leetcode.com/problems/process-restricted-friend-requests
+
+/*
+Runtime: 
+Storage: 
+General Explanation: 
+
+For this problem, we need to use Union Find. This algorithm works by identifying all nodes within a tree point to a head and then comparing if two nodes have the same head
+you can find out if they are part of the same tree. You can then Union the trees by making one root point to the other.
+More information on this process can be found here: https://www.youtube.com/watch?v=ayW5B2W9hfo
+
+
+
+
+*/
+//Code: 
+
+
+
+
+
+//Additional Resoureces
+//https://leetcode.com/problems/process-restricted-friend-requests/discuss/2489402/Java-Solution-or-Union-Find-or-Disjoint-Sets-or-Without-rank
+//https://www.youtube.com/watch?v=EVnIVVF-Jfs
