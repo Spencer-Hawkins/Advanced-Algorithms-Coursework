@@ -1,0 +1,63 @@
+//Problem: https://leetcode.com/problems/number-of-provinces
+
+/*
+Overall Runtime: O(n^2) as it traverses every cell in an n*n matrix one time.
+Overall Space: O(n) a visited array is constructed of length n to keep track of visited indices
+
+
+General Explanation:
+
+The intuition that most helped me in understanding the problem came from first visualizing a sample problem as a matrix
+
+//    A  B  C
+//  A[1, 1, 0]
+//  B[1, 1, 0]
+//  C[0, 0, 1]
+
+  Connections between cities can be identified not only as a 1 in their row and column, but one can also notice that those matches occur in the same 
+  column of the table. We can then traverse the columns for a given city to see which if any cities it is connected to.
+  
+  Our algorithm begins by constructing an array Visited to check whether or not a column we come across has already been checked for new provinces.
+  
+  We then begin a for loop that iterates through all of the cities by going through the length of isConnected.
+  
+  We check whether or not the given city has been visited. If so, continue. The only way a current city can be visited already is if a past city was connected to it 
+  and the helper function marked it as visited.
+  
+  If current city is not visited, we add one to our provinces count, and then use our DFS helper method to find all connected provinces by running down the 
+  columns for each connected city we find in our matrix and then marking them as visited in our visited matrix
+  
+  Once complete, we return our provinces count :)
+
+*/
+
+
+
+class Solution {
+    public int findCircleNum(int[][] isConnected) {
+        int[] visited = new  int[isConnected.length];
+        int provinces =0;
+        for(int i=0; i<isConnected.length; i++){
+        //Check if row has already been visited, if so, continue
+        if(visited[i]==1){
+            continue;
+        }
+            provinces++;
+            DFS(visited, isConnected, i);
+        }
+        
+        return provinces;
+    }
+    
+    public void DFS(int[] visited, int[][] isConnected, int row){
+        
+        //check for all cities within the same row
+        for(int j=0; j< isConnected.length; j++){
+            if(isConnected[row][j]==1 && visited[j]==0){
+                visited[j]=1;
+                DFS(visited, isConnected, j);
+            }
+        }
+        
+    }
+}
