@@ -1,1 +1,54 @@
 //https://leetcode.com/problems/house-robber-ii/
+
+/*
+Runtime: O(n)
+
+Space: O(n)
+
+HouseRobberII functions much in the same way as the first problem except our neighborhood is a circle. We then prevent any adjacent houses by either
+by beginning at the first house in the circle and ending at the second to last one, or by starting as the second house and going to the end of the neighborhood.
+
+In each call, we calculate the max by taking the max up to the current house by finding the max of dp[i-1] and nums[i]+dp[i-2] 
+
+
+*/
+
+
+class Solution {
+public int rob(int[] nums) {
+
+    if(nums == null || nums.length == 0) {
+        return 0;
+    }
+        
+    if(nums.length == 1) {
+        return nums[0];
+    }
+    
+    int n = nums.length;
+    int m1 = calcRob(nums, 0, n-2);
+    int m2 = calcRob(nums, 1, n-1);
+    
+    return Math.max(m1, m2);
+}
+
+
+public int calcRob(int[] nums, int i, int j){
+    
+    if(i == j){
+        return nums[i];
+    }
+    
+    int[] dp = new int[nums.length];
+    dp[i] = nums[i];
+    dp[i+1] = Math.max(dp[i], nums[i+1]); 
+    
+    for(int k = i+2; k<=j; k++){
+        dp[k] = Math.max(dp[k-1], dp[k-2]+nums[k]);
+    }
+    
+    return dp[j];
+}
+}
+
+//Additional Resources: https://leetcode.com/problems/house-robber-ii/discuss/2559752/JAVA%3A-DP-solution
