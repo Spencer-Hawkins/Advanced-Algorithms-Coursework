@@ -1,1 +1,37 @@
 //https://leetcode.com/problems/house-robber/
+
+/*
+Runtime:
+O(n) -- takes a single pass through the input taking the max of the two previous adjacent houses to find wich ones should be robbed
+Space:
+O(n) -- a dp array is created that is equal to the size of the input array
+
+
+Basic Explanation:
+dp[0]=nums[0] and dp[1]=max nums[0] and nums[1],
+We then iterate from nums[2] to the end of nums and add nums[i] plus dp[i-2] or dp[i-1]. The maximum of this evalutaion is the most money that could be robbed
+up to this point int the array. We can add dp[i-2] to nums[i] since those houses aren't adjacent and therefore will not notify the cops.
+
+After the for loop has completed, we then return the final element in our dp array
+
+*/
+
+class Solution {
+    public int rob(int[] nums) {
+            if(nums.length==1)
+                    return nums[0];
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        dp[1]=Math.max(nums[0],nums[1]);
+        for(int i=2;i<dp.length;i++)
+        {
+                dp[i]=Math.max(nums[i]+dp[i-2],dp[i-1]);
+        }
+            return dp[nums.length-1];
+    }
+}
+
+
+
+//Code to Review
+//https://leetcode.com/problems/house-robber/discuss/2559199/Easy-Java-Solutionoror100-fastororIterative-DP-Solution
