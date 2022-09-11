@@ -1,1 +1,43 @@
 //https://leetcode.com/problems/decode-ways/
+
+/*
+Runtime:
+O(n) - takes a single pass through the input string s in a for loop
+
+Space:
+O(n) initializes a single dp array to store the optimal solution up to that poin
+
+
+General Explanation:
+A digit from 1-9 is a single letter, a 1 in front of 1-9 of those creates a second option for how the letters may be split or a 2 in front of 1-6
+0's must always come after a 1 or a 2
+
+We check for an empty string or if we start with a zero, if either, return 0
+
+We then proceed in a for loop through the string where we will add an extra combination iff the identified two digit number is from 10-26, 
+we do this by adding dp[i-1] to dp[i+1] after dp[i+1] is already set as either a 0 or nonzero value
+
+
+*/
+
+
+class Solution {
+    public int numDecodings(String s) {
+        int len = s.length();
+        if (len == 0 || s.charAt(0) == '0') {
+            return 0;
+        }
+        int[] dp = new int[len+1];
+        dp[0] = 1;
+
+        for (int i = 0 ; i < len ; i++) {
+            dp[i+1] = s.charAt(i) == '0' ? 0 : dp[i];
+            if (i > 0 && (s.charAt(i-1) == '1' || (s.charAt(i-1) == '2' && s.charAt(i) <= '6'))) {
+                dp[i+1] += dp[i-1];
+            }
+        }
+        return dp[len];
+    }
+}
+
+//Additional resources, https://leetcode.com/problems/decode-ways/discuss/2562244/DP-For-Java
