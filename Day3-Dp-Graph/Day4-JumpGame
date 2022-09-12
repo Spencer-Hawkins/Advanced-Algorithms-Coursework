@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/jump-game/
+
+/*
+Runtime -- O(n) takes a single iteration over the array
+Space -- O(1) initializes a few pointer variables that aren't dependent on the size of the input
+
+General Explanation:
+We just need to keep track of our furthest jump yet. If we've made a jump that can come up to our current point, then we check each index up to 
+that point to see if there is a new possible jump to pass that current furthest index. If we find a possible jump which is i+nums[i] that passes
+or is equal to the length of the array, we return true. We return false if we reach an index to which no furthest jump can reach.
+
+*/
+
+class Solution {
+    public boolean canJump(int[] nums) {
+        int furthest = nums[0];
+        int current = nums[0];
+        if(nums.length==1 & nums[0]!=0) return true;
+        for(int i=0; i< nums.length; i++){
+            if(furthest<i) return false;
+            
+            if((nums[i]+i)>=nums.length-1) return true;
+            
+            if(nums[i]+i>furthest){
+                furthest=nums[i]+i;
+            }
+                
+            
+        
+        }
+        return false;
+    }
+}
+
+
+
+//Additional Resources -- https://leetcode.com/problems/jump-game/discuss/2568585/O(n)-Java-solution-with-explanation
