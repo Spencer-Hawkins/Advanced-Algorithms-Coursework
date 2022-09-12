@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/decode-ways/
+
+
+
+/*
+Runtime: O(m*n) the solution travels over every cell in the matrix one time to compute the total amount of paths. The amount of cells is m*n since it is the 
+                height multiplied by the width
+
+Space Complexity: O(m*n) this solution creates a DP array equal to m*n which is the sole data structure used.
+
+
+General Explanation:
+The amount of unique paths up to a given point with the restriction of movement down and solely to the right is then the sum of the cells directly 
+above it and directly to the left of any given cell. We seed 0,0 with 1 since there is one way to start the uniqe path and then proceed by adding the 
+value of cells directly above and directly to the left when available
+
+
+*/
+
+
+//Sample Code
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp= new int[m][n];
+        dp[0][0]=1;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                int top=0;
+                int left=0;
+                if(i==0 && j==0){
+                    continue;
+                }
+                if(i>0 && i<m){
+                    left=dp[i-1][j];
+                }
+                if(j>0 && j<n){
+                    top=dp[i][j-1];
+                }
+                dp[i][j]=top+left;
+            }
+        }
+        return dp[m-1][n-1];
+    }
+}
+
+
+//Additional Resources
