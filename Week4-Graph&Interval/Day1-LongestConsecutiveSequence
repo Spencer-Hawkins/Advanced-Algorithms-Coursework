@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/longest-consecutive-sequence/
+
+/*
+Runtime- O(n) single loop over array with constant time operations on each loop
+
+Space Analysis-O(1) only a constant amount of pointers are initialized beyond the array received as paramteter
+
+General Explanation- 
+Arrays.sort then use one variable to keep track of longest sequence and one variable to keep track of length of current sequence.
+If duplicate values in array, then just continue until new value is found.
+
+*/
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Arrays.sort(nums);
+        
+        if(nums.length==0){
+            return 0;
+        }
+        int temp=1;
+        int toReturn=1;
+        for(int i=1; i<nums.length; i++){
+            System.out.println(nums[i]+" "+nums[i-1]+" "+temp+" "+ toReturn);
+            if(nums[i]==nums[i-1]) continue;
+            if(nums[i]-nums[i-1]==1){
+                temp++;
+                if(temp>toReturn) toReturn=temp;                
+                
+            }else{
+                temp=1;
+            }
+        }
+        return toReturn;
+    }
+}
