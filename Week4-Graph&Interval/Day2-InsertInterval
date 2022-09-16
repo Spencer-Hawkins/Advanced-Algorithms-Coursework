@@ -1,0 +1,65 @@
+//https://leetcode.com/problems/insert-interval/
+
+/*
+Runtime:O(n) iterates over each interval in the n length array of interval windows
+
+Space Complexity:O(n) constructs a new Linked List to be turned to an array that is depenent on the size of the input intervals
+
+General Explanation:  We add intervals to our linked list until we come across the overlapping interval, which is where the current interval finishes after 
+                      the new interval begins. 
+                      We then find our new intervals start time by taking the min for the start time of every job that overlaps with the new interval and the
+                      new intervals start time itself.
+                      We find the new finish time by taking the max of the finish time for every task that overlaps with the new interval and the new intervals finish
+                      time itself. Once we finish iterating over every overlapping task,
+                      we then add this new interval to our linkedlist of intervals.
+                      We then iterate through the remaining intervals and add each.
+                      We turn the linkedList into an array and return it
+
+*/
+
+
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        // for zero or empty intervals
+        if (intervals.length == 0) {
+            return (new int[][] {{newInterval[0], newInterval[1]}});
+        }
+        
+        // initialize result data structure
+        LinkedList<int[]> result = new LinkedList<int[]>();
+        int index = 0;
+        
+        // First boundary is for non-overlapping intervals
+        // Check end compare end time of intervals and start time of newInterval
+        while (index < intervals.length && intervals[index][1] < newInterval[0]) {
+            result.add(intervals[index]);
+            index++;
+        }
+        
+        // Second boundary is for overlapping intervals
+        // compare start time of interval and end time of newInterval
+        // for overlapping intervals, modify the start and end of newInterval
+        while (index < intervals.length && intervals[index][0] <= newInterval[1]) {
+            int[] curInterval = intervals[index];
+            // if ther is overlap, modify the start and end times of newIntervals
+            newInterval[0] = Math.min(curInterval[0], newInterval[0]);
+            newInterval[1] = Math.max(curInterval[1], newInterval[1]);
+            index++;
+        }
+        
+        // Add the modified newInterval
+        result.add(newInterval);
+        
+        // Third boundary is for the remaining intervals.
+        while (index < intervals.length) {
+            result.add(intervals[index]);
+            index++;
+        }
+        
+        // return result in int[][] format.
+        return result.toArray(new int[result.size()][]);
+    }
+}
+
+
+//Additional Resource/Code Referenced: https://leetcode.com/problems/insert-interval/discuss/2580042/Insert-Interval-or-Java
