@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/number-of-islands/
+
+
+/*
+Runtime:
+
+Space Complexity:
+
+
+General Explanation:
+
+Double For Loop, when an island is found, increase count by one and 'sink island' by turning all 1's to 0's through DFS call
+at end of for loop, return count
+
+*/
+
+
+
+
+
+//Additional Resources
