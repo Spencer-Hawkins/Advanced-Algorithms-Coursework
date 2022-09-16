@@ -1,0 +1,63 @@
+//https://leetcode.com/problems/pacific-atlantic-water-flow/
+
+/*
+Runtime: O(m*n) each DFS will not retravel over cells and in worst case run over m*n cells. We perform multiple DFS calls for from each ocean, but this results in just
+          2*m*n which is still O(m*n). We perform another m*n option when we run through the DP arrays to check if a given cell could let rainwater flow to both oceans
+          but this still is another m*n operation
+
+Space Complexity: O(m*n)-- we initialize two DP arrays to keep track of the cells that flow to each ocean and 2*m*n is still O(m*n)
+                           the callstack for DFS will also never grow larger than m*n calls with constant variables and the array 
+                           int[][] dirs is constant so that is only O(1) space
+
+
+
+General Explanation:
+  --We can find if rainwater on any given cell can travel to both oceans by in reverse traveling from each ocean upward to the highest points possible.
+  --We do this by creating two DP arrays to store whether a not a cell has been visited from the DFS call starting at the coastline for one ocean.
+  --DFS travels to cell in question iff the cell in question is of equal or greater height to the current cell.
+  --After we DFS from each cell on the coastline, we run a double for loop to iterate over every cell in grid and check whether or not the cell was
+    visited from both the Pacific and Atlantic oceans.
+
+*/
+
+class Solution {
+    int[][] dirs = new int[][]{{0,1}, {1,0}, {0,-1}, {-1,0}};
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        int m = heights.length, n = heights[0].length;
+        boolean[][] pv = new boolean[m][n];
+        boolean[][] av = new boolean[m][n];
+        for(int i = 0; i < n; i++){
+            dfs(heights, pv, 0, i);
+            dfs(heights, av, m-1, i);
+        }
+        for(int i = 0; i < m; i++){
+            dfs(heights, pv, i, 0);
+            dfs(heights, av, i, n-1);
+        }
+        List<List<Integer>> l = new ArrayList<>();
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(pv[i][j] && av[i][j]) l.add(Arrays.asList(i,j));
+            }
+        }
+        return l;
+    }
+    
+    private void dfs(int[][] hs, boolean[][] v, int row, int col){
+        v[row][col] = true;
+        for(int i = 0; i < 4; i++){
+            int r = row + dirs[i][0];
+            int c = col + dirs[i][1];
+            if(r >= 0 && r < hs.length && c >= 0 && c < hs[0].length && hs[r][c] >= hs[row][col] && !v[r][c]){
+                dfs(hs, v, r, c);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+//Additional Resources: https://leetcode.com/problems/pacific-atlantic-water-flow/discuss/2580074/Java-Solution-using-DFS
