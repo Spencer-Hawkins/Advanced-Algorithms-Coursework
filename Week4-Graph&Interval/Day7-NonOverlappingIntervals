@@ -1,0 +1,16 @@
+//Problem-- https://leetcode.com/problems/non-overlapping-intervals/
+
+/*
+
+
+General Explanation:
+
+Sort intervals by soonest start time. Check if next interval starts before current interval finishes, if so, remove the interval with the later finish time to prvent
+chance of more overlaps.
+
+Iterate through rest of intervals making the same choice to remove intervals based on later finish time and keeping track of how many intervals have been removed.
+
+*/
+
+
+//Additional Sources-- https://www.youtube.com/watch?v=nONCGxWoUfM
