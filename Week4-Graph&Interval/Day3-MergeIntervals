@@ -1,1 +1,64 @@
 //https://leetcode.com/problems/merge-intervals/
+
+
+/*
+Runtime--
+
+TimeComplexity--
+
+
+
+General Explanation:
+Refer to Insert Interval for basic understanding of this problem. The only difference here is that we may have multiple overlapping intervals, 
+as well as our input intervals don't come sorted.
+
+Begin by sorting intervals by start time.
+
+Create an array list of FinalIntervals and add first interval-- create an int to keep trak of the index of the last added interval
+
+Then use a for loop to iterate through the rest of the intervals in the input, if the start time of the new interval comes before the finish time of the last added interval, 
+we have overlap, take the min of the start time for the two intervals as well as the max of the finish times and then replace the last interval in the ArrayList of final
+intervals with this new interval, 
+
+continue iterating through intervals removing and updating each time overlap is found or just adding the interval when no overlap is found
+
+Convert the arraylist to an array and then return
+
+
+*/
+
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a,b)->a[0]-b[0]); 
+        List<int[]> l = new ArrayList<>();
+        l.add(intervals[0]);
+        int last = 0;
+        for (int i=1; i<intervals.length; i++)
+        {
+            if (intervals[i][0] <= l.get(last)[1])
+            {
+                if (intervals[i][1] > l.get(last)[1])
+                    l.get(last)[1] = intervals[i][1];
+            }
+            else
+            {
+                l.add(intervals[i]);
+                last++;
+            }     
+        }
+        int[][] ans = new int[l.size()][2];
+        int i=0;
+        for (int[] row: l)
+        {
+            ans[i][0] = row[0];
+            ans[i++][1] = row[1];
+        }
+        return ans;
+    }
+}
+
+
+
+
+//Code Referenced-- https://leetcode.com/problems/merge-intervals/discuss/2583397/Easy-Clean-Java-Solution
