@@ -1,0 +1,14 @@
+//Problem and Solution: https://www.youtube.com/watch?v=6kTZYvNNyps
+
+/*
+
+
+General Explanation:
+We make a graph of character orderings by making a map with key value for each different character from input words
+We then compare each word pair in dictionary and look for first differing character in those two words. 
+If a prefix comes after a word with more characters or if our graph of orderings forms a cyclic dependency, we return an empty string
+
+After we iterate through each word pair from start to end, we then visit each letter in a DFS through our mapping and form a String in reverse while keeping track 
+of which letters have been visited and which haven't. We reverse this backwards string and then return it.
+
+*/
