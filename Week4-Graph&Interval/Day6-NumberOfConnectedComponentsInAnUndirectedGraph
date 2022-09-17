@@ -1,0 +1,17 @@
+//https://www.youtube.com/watch?v=8f1XPm4WOUc
+
+/*
+
+
+GeneralExplanation:
+
+Initialize boolean set of visited nodes to False for each Node
+
+Construct Graph with adjacency from input. 
+
+Use for loop to iterate over each node and if not visited, increment number of components by one and then perform DFS on current node to set all of the nodes
+connected to that node to True,
+Then return the number of components.
+
+
+*/
