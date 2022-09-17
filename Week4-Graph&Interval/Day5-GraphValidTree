@@ -1,0 +1,16 @@
+//https://www.youtube.com/watch?v=bXsUuownnoQ
+
+/*
+
+General Explanation:
+  Base Case: If no nodes, then empty graph is tree and return true
+  
+  We are searching for graph with all nodes connected, and no cycles. We do this by performing DFS and keeping track of size of visited set to make sure 
+  it equals the number of nodes as well as making sure along the way no cycle is created. A cycle occurs when there is any adjacent node that has already been visited 
+  other than the one from which we just traveled.
+  
+  Time complexity is O(e+v) edges+vertices and constant time operations for each edge and vertex along the way.
+  
+  
+
+*/
