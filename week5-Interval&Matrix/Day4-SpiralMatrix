@@ -1,0 +1,76 @@
+//Problem
+
+/*
+
+Time Complexity: O(n) -- must travel every cell in matrix
+
+Space Complexity: O(1) -- no new data structures, only must keep track of existing pointers
+
+General Explanation:  Four for loops or while loops used to keep track of current borders of travel within a while loop. As soon as you travel to the right along
+                      the top row you must never travel to the top row again and keep your lower your top border. The same principle applies for the right, left, and botto
+                      of the matrix as well. 
+                      The trickiest part for me was realizing that I was adding all corner values in my matrix twice and needed to adjust the other index by one after 
+                      leaving the paired while loop to not duplicate values
+
+
+*/
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int left=0;
+        int right=matrix[0].length-1;
+        int top=0;
+        int bot=matrix.length-1;
+        ArrayList<Integer> toReturn = new ArrayList<>();
+        int x=0;
+        int y=0;
+        int finLength=matrix[0].length*matrix.length;
+        
+        while (toReturn.size()< finLength){
+            
+            //moving right along row
+            while(x<=right && toReturn.size()< finLength){
+                toReturn.add(matrix[top][x]);
+                x++;
+            }
+            x--;
+            y++;
+            top++;
+            
+            //moving down right edge
+            while(y<=bot && toReturn.size()< finLength){
+                toReturn.add(matrix[y][right]);
+                y++;
+            }
+            y--;
+            x--;
+            right--;
+            
+            //moving left along bot
+            while(x>=left && toReturn.size()< finLength){
+                //System.out.println("this is x"+ x+ " and here is y "+ y+ " and here is bot "+ bot+ " and left "+ left);
+                 toReturn.add(matrix[bot][x]);
+                x--;
+            }
+            x++;
+            y--;
+            bot--;
+            
+            //moving up along left
+            while(y>=top && toReturn.size()< finLength){
+                System.out.println( " and here is y "+ y+ " and here is bot "+ bot+ " and left "+ left);
+                toReturn.add(matrix[y][left]);
+                y--;
+            }
+            y++;
+            x++;
+            left++;
+        }
+        return toReturn;
+    }
+}
+
+
+//More Resources: https://leetcode.com/problems/spiral-matrix/discuss/2598090/Java-Solution-with-Some-Comments
+//                https://leetcode.com/problems/spiral-matrix/discuss/2594729/Java-or-O(m%2Bn)
+//                https://leetcode.com/problems/spiral-matrix/discuss/2597558/JAVA-or-0ms
