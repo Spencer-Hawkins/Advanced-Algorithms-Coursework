@@ -1,0 +1,18 @@
+//https://www.youtube.com/watch?v=FdzJmTCVyJU
+
+
+/*
+Time Complexity: O(NlogN) Creating and sorting the two inpur arrays is the most computationally heavy step. Everything after can be processed in a single swipe.
+
+Space: O(N)
+
+General Explanation:  Keep track of Count. Every time new meeting begins increment count. Every time meeting ends, decrement count. Check after each increment if Count 
+                      is greater than max, if so, max=Count
+                      
+                      Keep track of start and end times in two arrays. Have a pointer in each array. If next value in start is lower than next value in end, increment 
+                      Count, else, decrement it. Always pick end time first in case of a tie
+                      
+                      Return Max
+
+
+*/
