@@ -1,0 +1,12 @@
+//https://www.youtube.com/watch?v=PaJxqZVPhbg
+
+/*
+Time Complexity: (NlogN)
+
+Soace Complexity: ()
+
+General Explanation: Sort meetings by soonest start time than process for loop and check if current task runs past the next tasks start time, if so, return false
+                      If you make it through with no overlap, return true
+
+
+*/
