@@ -1,0 +1,36 @@
+//Problem: https://leetcode.com/problems/valid-parentheses/
+
+/*
+Runtime: O(n) must iterate over entire string once
+
+SpaceComplexity: O(n) in worst case stack grows to size n/2 which is still O(n)
+
+
+General Explanation: We keep track of all opening paraenthasis in our stack because we need to make sure that the whatever the type of the most recently 
+added parenthases is also the first one to be closed. If a non-opening character is encountered, we peek at the stack to see if it matchest a closing parenthases.
+If not, return false. We then pop the character. If we make it through the for loop and our stack is empty, return true. Else, return false.
+
+*/
+
+
+class Solution {
+public boolean isValid(String s) {
+Stack st=new Stack<>();
+for(int i=0;i<s.length();i++){
+char c=s.charAt(i);
+if(c=='(' || c=='{' || c=='[') st.push(c);
+else if(st.isEmpty()) return false;
+else if((c==')' && st.peek()!='(') || (c=='}' && st.peek()!='{') || (c==']' && st.peek()!='['))
+{
+return false;
+}
+else
+st.pop();
+}
+if(st.isEmpty()) return true;
+return false;
+}
+}
+
+
+//Code Referenced: https://leetcode.com/problems/valid-parentheses/discuss/2602396/Very-Easy-Java-Solution-1ms-and-99.67-faster-code
