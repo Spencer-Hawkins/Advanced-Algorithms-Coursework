@@ -1,0 +1,20 @@
+/*
+Problem: Currency Exchange: Given A String of input triplets that are semiColon separated from the next triplet and separated by comma within, EX: Cur1, Cur2, Exchange Rate; ... 
+The final section of the input is then two strings, CurX which is the currency you are exchanging from and CurY which is the target currency to be exchanged to.
+What then is the maxiumum exchange rate one can obtain from CurX and CurY with the supplied exchange rates.
+
+
+
+
+General Explanation:
+      First, the data structures must be constructed from the input string by splitting the string into an array of substings at each semicolon, and then each triplet is
+      split again at the nearest comma.
+      Creating one Mapping of <String, List<String>>ChildCurrencies since currency exchanges are one directional. Everytime we occur a pairing, add triplet[1] to triplet[0]'s
+      List<String> of Child Currencies
+      We then also keep track of ExchangeRates by using a mapping of <String, String> and adding (triplet[0].concat(triplet[1]), triplet[2]) on each iteration.
+      
+      Once the data structures are created, we perform DFS starting at our root node wich is CurX. We recurse down multiplying by the exchange rate of our current currency
+      to that of the child node we are finding. If we hit a dead end, return 0. If on a recursive call CurX = CurY, then we found our target and we return 1;
+      We keep track of the values of the recursive calls for each child node and only return the max value at each layer.
+
+*/
