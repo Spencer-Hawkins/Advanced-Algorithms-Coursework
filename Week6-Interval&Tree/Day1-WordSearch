@@ -1,0 +1,61 @@
+//Problem: https://leetcode.com/problems/word-search
+
+/*
+Time Complexity: O(n*m*p) n=width of grid, m=height of grid, p=length of word
+
+
+Space Complexity: O(n*m) the function builds a DP array of size m*n but also builds a recursive call stack that grows up to length p-1
+
+
+General Explanation:
+
+  We construct an array to keep track of whether or not a cell has been visited on a given recursive call. We then recurse starting from each cell and do one one recursive
+  call into each direction. Before each call, we mark the current cell as visited, and if the calls fail, we unmark the cell as visited. 
+  
+  Recursive base case, if index ==word.length, then we found every character in the word in previous calls and may now return true, or if we're out of bounds or if
+  the current cell does not contain the next letter, we return false.
+  
+
+
+*/
+
+class Solution {
+    
+    public boolean exist(char[][] board, String word) {
+        int[][] visited = new int[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (word.charAt(0) == board[i][j] && searchWord(board, word, i, j, 0, visited)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public static boolean searchWord(char[][] grid, String word, int i, int j, int index, int[][] visited) {
+        // Base cases
+        if (index == word.length()) return true;
+        if (
+                i < 0 || i >= grid.length ||
+                        j < 0 || j >= grid[0].length ||
+                        visited[i][j] == 1 || grid[i][j] != word.charAt(index)
+        ) return false;
+
+        visited[i][j] = 1;
+        // Explore Possibilities and return subproblem response
+        if (
+                searchWord(grid, word, i + 1, j, index + 1, visited) ||
+                        searchWord(grid, word, i - 1, j, index + 1, visited) ||
+                        searchWord(grid, word, i, j + 1, index + 1, visited) ||
+                        searchWord(grid, word, i, j - 1, index + 1, visited)
+        ) {
+            return true;
+        }
+        visited[i][j] = 0;
+        return false;
+    }
+}
+
+
+//Code Referenced: https://leetcode.com/problems/word-search/discuss/2607686/recursion-with-backtracking-java-solution
