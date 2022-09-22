@@ -1,0 +1,25 @@
+//Problem: https://leetcode.com/problems/maximum-depth-of-binary-tree
+
+
+/*
+Time Complexity: O(n) every node in tree is traversed
+
+Space Complexity: O(logn) call stack can build up to one half of tree
+
+General Explanation: Once root=null, you traveled past a leaf node and then return zero. Recurse down each child node of the current root, and add 1 each layer you descend
+Returning the max of each child call will give you the max overall.
+
+*/
+
+
+class Solution {
+    public int maxDepth(TreeNode root) {
+    if(root==null) return 0;
+   
+        int temp1 = 1+ maxDepth(root.left);
+        int temp2 = 1+ maxDepth(root.right);
+        return Math.max(temp1, temp2);
+    }
+}
+
+//Additional Resources: https://leetcode.com/problems/maximum-depth-of-binary-tree/discuss/1769344/Java-C%2B%2B-Easy-to-go-Explanation-and-Solution
