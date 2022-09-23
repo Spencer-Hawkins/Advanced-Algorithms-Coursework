@@ -10,9 +10,21 @@ General Explanation:
 
 */
 
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        return DFS(p, q);
+    }
+    
+    public boolean DFS(TreeNode p, TreeNode q){
+        if(p==null && q==null) return true;
+        if(p==null || q==null || p.val != q.val) return false;
+        
+        return DFS(p.left, q.left) && DFS(p.right, q.right);
+    }
+}
 
 
 
 
 
-//Additional Resources: 
+//Additional Resources: https://leetcode.com/problems/same-tree/discuss/2611786/Java-or-3-ways-or-Recursion-BFS-and-DFS
