@@ -1,9 +1,13 @@
 //Problem: https://leetcode.com/problems/same-tree/
 
 /*
-Time Complexity:
+Time Complexity: O(n) N=number of nodes in tree
 
-Space Complexity:
+Space Complexity:O(n) we build up to N call stacks in the tree at a given time.
+
+We check if both nodes are equal to null, if so that means we sucessfully matched the nodes in one path all the way down to the leaf. 
+If one node is past a leaf while another isn't or if there values aren't equal return false. We AND the recursive calls so that one 
+false returns false for the whole function.
 
 
 General Explanation:
