@@ -1,0 +1,49 @@
+//Problem https://leetcode.com/problems/binary-tree-maximum-path-sum/
+
+/*
+
+Runtime: O(1) per call, but O(n) calls for each node
+
+Space Complexity: callstack grows to size O(n)
+
+General Explanation:  The biggest problem for me in my first attempt of this problem was the confusion about whether or not the path at the current Node
+                      would need to traverse upward. This is difficult because it would add another max operation instead of just maxing the left, or the 
+                      right paths with the current, you'd have to max each against the parent Node as well.
+                      The solution to this problem is just storing a global currentMax variable. At each iteration you compare your current max to this one 
+                      and change it if you've found a new max, and each call of DFS only returns the max value path with the children nodes. return 0 if 
+                      past leaf Node. Otherwise, we return the max path through that Node. We also update the currentMaxPath global variable if a new Max
+                      has been found.
+
+
+*/
+
+class Solution {
+    
+    int MaxPathSum = Integer.MIN_VALUE; 
+    
+    public int maxPathSum(TreeNode root) {
+        DFS(root);
+        return MaxPathSum;
+        
+    }
+    
+    public int DFS(TreeNode root){
+        if(root==null) return 0;
+        
+        int val= root.val;
+        int left= DFS(root.left);
+        int right= DFS(root.right);
+        
+        int max1 = Math.max(val, val+Math.max(left, right));
+        int max2 = Math.max(max1, val+left+right);
+     
+        MaxPathSum= Math.max(MaxPathSum, max2);
+        
+        return max1;
+    }
+}
+
+
+
+
+//Additional Resources: https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/2613982/Java-Solution-oror-100-faster-oror-100-optimized
