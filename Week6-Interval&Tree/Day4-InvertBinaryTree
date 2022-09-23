@@ -1,0 +1,33 @@
+// Problem: https://leetcode.com/problems/invert-binary-tree/submissions/
+
+/*
+Runtime: Each function call does O(1) work, but O(n) calls must be made to traverse every node 
+
+Space Complexity: O(N) function calls build up on the callstack
+
+General Explanation: By starting from the top and switching the left and right children of the root Node, we switch
+all children nodes below to the correct half of the tree as well. We continue until our Node is null which means we've passed
+the end of the tree.
+
+
+*/
+
+
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        switchChild(root);
+        return root;
+    }
+    
+    public static void switchChild(TreeNode root){
+        if(root==null) return;
+        TreeNode temp = root.left;
+        root.left=root.right;
+        root.right=temp;
+        switchChild(root.left);
+        switchChild(root.right);
+        return;
+    }
+}
+
