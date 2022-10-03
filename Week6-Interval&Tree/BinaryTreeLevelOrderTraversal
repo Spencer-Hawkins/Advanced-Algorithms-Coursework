@@ -1,0 +1,42 @@
+//Problem: https://leetcode.com/problems/binary-tree-level-order-traversal
+
+
+/*
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+General Explanation: Create queue of Nodes and List of List of Nodes. The children of current layer become queue for the next layer. Everything from queue that is 
+                     non-null gets moved into a List. At end of each layer list gets added to list of lists
+
+*/
+
+
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> treeList = new ArrayList<>();
+        Queue<TreeNode> treeQueue = new LinkedList<>();
+        
+        if(root == null) { return treeList; }
+        
+        treeQueue.add(root);
+        
+        while(!treeQueue.isEmpty()) {
+            List<Integer> levelList = new ArrayList<>();
+            int levelSize = treeQueue.size();
+            
+            for(int i = 0; i < levelSize; i++) {
+                TreeNode curNode = treeQueue.poll();
+                if(curNode == null) { continue; }
+                levelList.add(curNode.val);
+                treeQueue.add(curNode.left);
+                treeQueue.add(curNode.right);
+            }
+            
+            if(!levelList.isEmpty()) { treeList.add(levelList); }
+        }
+        return treeList;
+    }
+}
+
+//Code Referenced: https://leetcode.com/problems/binary-tree-level-order-traversal/discuss/2652660/Java-Solution-or-O(n)
