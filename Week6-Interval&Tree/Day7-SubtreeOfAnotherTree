@@ -1,12 +1,35 @@
 //Problem: https://leetcode.com/problems/subtree-of-another-tree
 
 /*
-Space Complexity:
+Space Complexity: O(n) can build up to n call stacks
 
-Time Complexity:
+Time Complexity: O(n) must check up to n nodes in main tree with possibility for few repeats based on overlap from subtree
 
 General Explanation:
+              We only begin checking if we have a subtree when we've found that the tree has the same root node as the current tree we are looking at.
+              Until then, we call the same main method on the left and right of the main tree. Our helper function looks for equality between two
+              root nodes by checking beween the base cases that we one Node hasn't hit null while the other has and also making sure the values of the 
+              current nodes are the same before continuing the recursion.
 
 */
 
 
+public class Solution {
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        if (s == null) return false;
+        if (isSame(s, t)) return true;
+        return isSubtree(s.left, t) || isSubtree(s.right, t);
+    }
+    
+    private boolean isSame(TreeNode s, TreeNode t) {
+        if (s == null && t == null) return true;
+        if (s == null || t == null) return false;
+        
+        if (s.val != t.val) return false;
+        
+        return isSame(s.left, t.left) && isSame(s.right, t.right);
+    }
+}
+
+
+//Code Referenced: https://leetcode.com/problems/subtree-of-another-tree/discuss/102724/Java-Solution-tree-traversal
