@@ -1,0 +1,53 @@
+//Problem: https://leetcode.com/problems/binary-tree-level-order-traversal
+
+
+
+/*
+Space Complexity: O(n) we build an List of Integer Lists that grows with one value for each node in the original tree
+
+Time Complexity: O(n) traverse every node in tree once
+
+
+General Explanation:
+  If root isn't null, add to queue. We then find size of queue and then remove those elements to add to list for current level while adding 
+  children of all removed nodes back into queue to be pulled on further iterations of while loop. While loop runs until queue is empty 
+  which is after we've passed the last level of the tree.
+
+
+*/
+
+
+
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> toReturn = new ArrayList<>();
+        
+        if(root==null){return toReturn;}
+    
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+    while(queue.isEmpty()==false){
+        int size  = queue.size();
+        List<Integer> level = new ArrayList<Integer>();
+        for(int i=0; i<size; i++){
+            TreeNode current = queue.poll();
+            level.add(current.val);
+            if(current.left!=null){
+                queue.add(current.left);
+            }
+            if(current.right!=null){
+                queue.add(current.right);
+            }
+            
+        }
+        toReturn.add(level);
+    }
+    return toReturn;
+    }
+
+    
+    
+}
+
+
+//Sources Referenced: https://www.youtube.com/watch?v=XZnWETlZZ14&t=105s
