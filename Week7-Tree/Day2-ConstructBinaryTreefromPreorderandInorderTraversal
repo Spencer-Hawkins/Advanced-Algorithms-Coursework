@@ -1,0 +1,40 @@
+// Problem: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+
+
+/*
+Time Complexity:
+          O(n) up to n calls, and each for loop runs for max case of O(n)
+
+Space Complexity:
+          up to O(n) sized call stack
+
+General Explanation:
+            We can identify root as preorder[start] on each recursive call, and then we divide the left and the right children based on where the root is found within the inorder traversal
+
+*/
+
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+    return helper(0, 0, inorder.length - 1, preorder, inorder);
+}
+
+public TreeNode helper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder) {
+    if (preStart > preorder.length - 1 || inStart > inEnd) {
+        return null;
+    }
+    TreeNode root = new TreeNode(preorder[preStart]);
+    int inIndex = 0; // Index of current root in inorder
+    for (int i = inStart; i <= inEnd; i++) {
+        if (inorder[i] == root.val) {
+            inIndex = i;
+        }
+    }
+    root.left = helper(preStart + 1, inStart, inIndex - 1, preorder, inorder);
+    root.right = helper(preStart + inIndex - inStart + 1, inIndex + 1, inEnd, preorder, inorder);
+    return root;
+}
+
+
+//Code Referenced: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/submissions/  ,  https://www.youtube.com/watch?v=ihj4IQGZ2zc
+
+
+
