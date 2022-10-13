@@ -1,0 +1,34 @@
+//Problem: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+
+
+/*
+Space Complexity: O(k) up to k call stacks since we have terminating condition at top of recursive call
+
+Time Complexity: O(k) we stop running as soon as the kth Node has been found
+
+General Explanation: To find the kth smallest element, we must do an inorder traversal and add it to a global ArrayList
+                      No need to build arraylist past the kth node, so we stop making recursive calls at that point and return node
+
+*/
+
+
+class Solution {
+    List<Integer> inorder = new ArrayList<>();
+	
+    public int kthSmallest(TreeNode root, int k) {
+        printInorder(root, k);
+        return inorder.get(k-1);
+    }
+	
+    public void printInorder(TreeNode root, int k) {
+        if(root != null && inorder.size() < k) {
+            printInorder(root.left, k);
+            inorder.add(root.val);
+            printInorder(root.right, k);
+        }
+    }
+}
+
+
+
+//Code Referenced: https://leetcode.com/problems/kth-smallest-element-in-a-bst/discuss/2652784/Java-Solution-or-O(k)-or-Beats-100
