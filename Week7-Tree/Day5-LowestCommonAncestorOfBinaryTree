@@ -1,0 +1,35 @@
+//Problem:
+
+
+/*
+Time complexity: O(log(n)), at each level we choose only one level of tree to search further.
+
+
+Space Complexity:O(1) we maintain the same pointer throughout the entire while loop and build no recursive call stack
+
+
+General Explanation: In Binary Search tree, if a childs value is less than that of a parent it will be on the left side of that parent 
+                     Node. If it is greater, than it is on the right. If one is on each side, then we have found the lowest common Ancestor. 
+
+*/
+
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode curr = root;
+        
+        while(curr != null){
+            if(p.val>curr.val && q.val>curr.val){
+                curr=curr.right;   
+            }else if(p.val<curr.val && q.val<curr.val){                
+                curr=curr.left;
+            }else{
+                return curr;
+            }
+        }
+        return root;
+    }
+}
+
+
+//Resources Referenced: youtube.com/watch?v=gs2LMfuOR9k, https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/discuss/2689478/JAVA-oror-EASIEST-APPROACH-oror-NO-EXPLAINATION-REQUIRED
