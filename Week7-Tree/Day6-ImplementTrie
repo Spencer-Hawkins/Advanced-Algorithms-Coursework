@@ -1,0 +1,30 @@
+//Problem: 
+
+
+/*
+Time Complexity: NA
+
+
+
+Space Complexity: NA
+
+
+
+
+
+General Explanation:  To maintain the most efficiency, we construct our TrieNode with a root Node of some arbitrary non alphabet character, '*' 
+                      which then has up to twenty six Child Nodes ['a'-'z'] which are added on insert operations. If we insert a word, we check 
+                      for each character if the current node has the next level in the tree has a node that starts with the next letter. Once we 
+                      reach the last letter, we check if that node holds the property 'isEndOfWord' and if so, the word has been found, else we 
+                      found a prefix. The 'startsWith' method functions almost entirely the same besides checking for the 'isEndOfWord' propoerty
+                      
+
+
+
+*/
+
+
+
+//Code Referenced:  https://www.youtube.com/watch?v=oobqoCJlHA0
+//                  https://leetcode.com/problems/implement-trie-prefix-tree/discuss/58832/AC-JAVA-solution-simple-using-single-array, 
+//                  https://leetcode.com/problems/implement-trie-prefix-tree/discuss/2704934/Awesome-solution-with-just-hashmap-used-faster-than-88
