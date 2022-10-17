@@ -2,14 +2,20 @@
 
 
 /*
-Runtime:
+Runtime:    AddWord-- O(n)   SearchWord-- )(n)
 
 
-Space Complexity:
+Space Complexity:   log_26(n)
+                    
 
 
-General Explanation:
-
+General Explanation:    A wordDictionary here is a node that has an array of up to 26 children -- one for each letter in the English alphabet. By adding a new word Dictionary 
+                        by adding a blank wordDictionary at the index of the current char-i we add essentially the next letter into the tree at that level. Before
+                        this new wordDictionary is added, the value in the array is null which means no words exist at that point or further down that path.
+                        Final step of adding a word once all leters have been added is to mark isEndOfWord property as true so we know that charcter was the end of a word
+                        We can then find if a word is possible by processing down the tree from the root one index at a time and checking if we can make it to the final letter
+                        and if that final letter has isEndOfWord marked true
+                        
 
 */
 
