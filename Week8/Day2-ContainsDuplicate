@@ -1,0 +1,38 @@
+//Problem: https://leetcode.com/problems/contains-duplicate/submissions/
+
+
+/*
+
+Space Complexity: O(n)
+
+
+Time Complexity: O(n)
+
+
+General Explanation: 
+                         Two methods:
+                                1.  We store all values that we've seen in a HashMap. if the hashmap ever has an 
+                                    existing key, we know that we've found a value that we've seen before and may return true
+                                2.  Arrays.Sort, and then check if value at current index is equal to next index
+                                3.  Use HashSet instead of HashMap, it is more memory efficient
+
+*/
+
+
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashMap<Integer, Integer> count = new HashMap <Integer, Integer>();
+        for( int num: nums){
+            if(count.containsKey(num)){
+                return true;
+            }else{
+                count.put(num, 0);
+            }
+                
+        }
+        return false;
+    }
+}
+
+
