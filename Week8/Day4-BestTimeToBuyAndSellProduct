@@ -1,0 +1,40 @@
+//Problem:
+
+
+/*
+
+Time Complexity: O(n)
+
+
+Space Complexity: O(n)
+
+
+General Explanation:  We must keep track of a pointer of the smallest value up to a point, and then the highest value in the array
+                      following that point. Each time we find a new lower value, we reset the higher pointer to the min value. Each
+                      time we update the max pointer, we check if the new max when we subtract the min from it gives us a new max profit.
+
+
+
+*/
+
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int currBuy=prices[0];
+        int currSell=-4;
+        int maxProfit=0;
+        for(int i=1;i<prices.length; i++){
+            if(prices[i]<currBuy){
+                currBuy=prices[i];
+                currSell=prices[i];
+            }else if(prices[i]>currSell){
+                currSell=prices[i];
+                if(currSell-currBuy>maxProfit){
+                    maxProfit=currSell-currBuy;
+                }
+            }
+            
+        }
+        return maxProfit;
+    }
+}
