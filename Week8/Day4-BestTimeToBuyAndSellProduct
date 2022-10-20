@@ -1,4 +1,4 @@
-//Problem:
+//Problem: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 
 
 /*
@@ -32,9 +32,11 @@ class Solution {
                 if(currSell-currBuy>maxProfit){
                     maxProfit=currSell-currBuy;
                 }
-            }
-            
+            }           
         }
         return maxProfit;
     }
 }
+
+
+//Additional Resources: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/discuss/1735493/JavaC%2B%2B-best-ever-EXPLANATION-could-possible
