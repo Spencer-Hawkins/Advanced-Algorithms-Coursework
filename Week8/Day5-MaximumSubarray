@@ -1,0 +1,31 @@
+//Problem: https://leetcode.com/problems/maximum-subarray/submissions/
+
+/*
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+General Explanation: We must keep track of the sum as the algorithm progresses, as well as whatever is our current max value. If our sum becomes greater than our max, 
+                     we set max equal to sum. If by adding consecutive values in subarray we obtain a negative sum, we should reset sum to zero.
+
+*/
+
+
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int n = nums.length;
+        int max = Integer.MIN_VALUE, sum = 0;
+        
+        for(int i=0;i<n;i++){
+            sum += nums[i];
+            max = Math.max(sum,max);
+            
+            if(sum<0) sum = 0;
+        }
+        
+        return max;
+    }
+}
+
+//Code Referenced: https://leetcode.com/problems/maximum-subarray/discuss/1595097/JAVA-or-Kadane's-Algorithm-or-Explanation-Using-Image
