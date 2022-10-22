@@ -1,0 +1,23 @@
+//Problem: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+
+
+/*
+Time Complexity: O(logn)
+
+
+Space Complexity:O(n)
+
+
+General Explanation: We sort the array so the smallest value is at the first index and then return it.
+
+
+*/
+
+
+class Solution {
+    public int findMin(int[] nums) {
+        Arrays.sort(nums);
+        return(nums[0]);
+    }
+}
+
