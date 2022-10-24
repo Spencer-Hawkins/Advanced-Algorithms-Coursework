@@ -1,0 +1,29 @@
+//Problem: https://leetcode.com/problems/container-with-most-water
+
+/*
+Time Complexity: O(n) -- travel every index at most once
+
+Space Complexity: O(n) store a single array
+
+General Explanation: Left pointer and right pointer. We keep track of current max and total max. Whichever side-left or right is shorter we move inwards. 
+                     Once both pointers are same index, return max value.
+
+*/
+
+class Solution {
+    public int maxArea(int[] height) {
+        int curMax=0;
+        int toReturn=0;
+        int i=0;
+        int j=height.length-1;
+        while(i < j){
+            curMax = (j-i)*Math.min(height[i],height[j]);
+            toReturn=Math.max(curMax, toReturn);
+            if(height[i]>height[j]){j--;}
+            else{i++;}
+            
+        }
+
+        return toReturn;
+    }
+}
