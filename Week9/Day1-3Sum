@@ -1,0 +1,44 @@
+//Problem: 
+
+
+
+/*
+Time Complexity: (n * n * log_3)
+      
+
+Space Complexity: (n)
+
+
+General Explanation: keep track of three pointers. If left and right add up to 0-nums[i], then add to set
+
+
+*/
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> resultSet = new HashSet();
+
+        Set<Integer> duplicatedSet = new HashSet<>();
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for(int i = 0; i < nums.length - 2; i++) {
+            if (!duplicatedSet.add(nums[i])) continue;
+
+            for (int j = i + 1; j < nums.length; j++) {
+                int value = 0 - nums[i] - nums[j];
+                if (map.containsKey(value) && map.get(value) == i) {
+                    List<Integer> list = new ArrayList<>(Arrays.asList(nums[i], nums[j], value));
+                    Collections.sort(list);
+                    resultSet.add(list);
+                }
+                map.put(nums[j], i);
+            }
+        }
+        return new ArrayList<>(resultSet) ;
+    }
+
+
+
+
+
+//Code Referenced: https://leetcode.com/problems/3sum/discuss/2676313/Java-binary-search-two-pointers-or-hashmap-or-5-solutions
+//Resources Referenced: https://www.youtube.com/watch?v=qJSPYnS35SE
