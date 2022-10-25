@@ -1,0 +1,22 @@
+//Problem: https://leetcode.com/problems/longest-repeating-character-replacement/submissions/
+
+
+/*
+
+Time Complexity: O(n)
+
+
+Space Complexity: O(n)
+
+
+
+General Explanation:  Sliding Window -- two pointers start at 0 index as well as initialize a frequency array. We know a window is valid if the window has up to 
+                      k letters that we are able to change. We keep track of the frequency of the most common letter at each step of the iteration and if we ever have
+                      an invalid window, increment left pointer forward and decrement the frequency of removed letters until a valid window is restored
+
+
+*/
+
+
+
+//Code Referenced: https://leetcode.com/problems/longest-repeating-character-replacement/submissions/
