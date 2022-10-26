@@ -1,0 +1,32 @@
+// Problem:https://leetcode.com/problems/valid-anagram/
+
+
+/*
+Time Complexity: O(n)
+
+
+Space Complexity: O(n)
+
+
+
+General Explanation:  Convert string to char array, then sort the characters. If they are not the same length, or if the value at each index is not the same then 
+                      return false. If no values are found to not be equal, return true after finishing loop.
+
+
+*/
+
+
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        char[] one = s.toCharArray();
+        char[] two = t.toCharArray();
+       Arrays.sort(one);
+       Arrays.sort(two);
+        if(one.length != two.length){return false;}
+        for(int i=0; i< one.length; i++){
+            if(one[i]!=two[i]){return false;}
+        }
+        return true;
+    }
+}
