@@ -1,0 +1,31 @@
+//Problem: https://leetcode.com/problems/group-anagrams
+
+/*
+Time Complexity: O(n*m) n words and m length for each word
+
+Space Complexity: O(n)
+
+General Explanation:  Store mapping of all anagram pairings. We determine if new word fits in the pairings by creating the key 
+                      string by incrementing the correct letters of the alphabet in the Char Array. We transform that to a string 
+                      and check if it exists in our Mapping yet. If so, we add to the existing anagrams list, else, we pull down the list and add to it
+
+
+*/
+
+
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs == null || strs.length == 0) return new ArrayList<>();
+        Map<String, List<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] ca = new char[26];
+            for (char c : s.toCharArray()) ca[c - 'a']++;
+            String keyStr = String.valueOf(ca);
+            if (!map.containsKey(keyStr)) map.put(keyStr, new ArrayList<>());
+            map.get(keyStr).add(s);
+        }
+        return new ArrayList<>(map.values());
+    }
+    
+    
+    //Code Referenced: https://leetcode.com/problems/group-anagrams/discuss/19176/Share-my-short-JAVA-solution
