@@ -1,0 +1,22 @@
+Problem: https://leetcode.com/problems/sum-of-two-integers/
+
+
+/*
+
+Space Complexity: O(m) call stack builds up to size of number of bits in a^b
+
+Time Complexity: O(n)
+
+Binary operators act on the bits of the integer itself. Refer here to learn each of the operators. https://www.tutorialspoint.com/java/java_basic_operators.htm
+and here to learn common implementations, https://leetcode.com/problems/sum-of-two-integers/discuss/84278/A-summary%3A-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently
+
+
+*/
+
+class Solution {
+    public int getSum(int a, int b) {
+        return b==0? a:getSum(a^b, (a&b)<<1); //be careful about the terminating condition;
+    }
+}
+
+//Code Referenced: https://leetcode.com/problems/sum-of-two-integers/discuss/84278/A-summary%3A-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently
