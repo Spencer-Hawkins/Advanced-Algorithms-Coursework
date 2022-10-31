@@ -1,0 +1,26 @@
+//Problem: https://leetcode.com/problems/number-of-1-bits/
+
+
+/*
+
+Time Complexity:   O(1) will go through all 32 bits in java
+
+Space Complexity: O(1) while loop uses pointers instead of building call stack
+
+General Explanation:
+                      
+
+*/
+
+public class Solution {
+    // you need to treat n as an unsigned value
+    public int hammingWeight(int n) {
+        int count=0;
+        while(n!=0) {
+            n = n&(n-1);
+            count++;
+        }
+        return count;
+    }
+}
+
