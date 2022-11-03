@@ -1,0 +1,42 @@
+//Problem: https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/discuss/2772074/Java-oror-Explained-in-Detailoror-Simple-and-Fast-Solutionoror-Counting-oror-Hash-Table-oror-Greedy
+
+
+/*
+Time Complexity: O(n)
+
+Space Complexity: O(1)
+
+
+General Explanation: We know that any pair of two letter words that form a palindrome are replaceable in that they have multiple valid placements, so instead of literally
+                      constructing a valid palindrome we can count the length for which it forms to be. Any pair of two letter words with different letters which form a 
+                      palindrome increases our max by four while a two letter palindrome of same letters increases our max solely by two.
+
+
+*/
+
+
+class Solution {
+    public int longestPalindrome(String[] words) {
+        int[][] counting = new int[26][26];
+        int max = 0;
+        for (String word : words) {
+            int a = word.charAt(0) - 'a';
+            int b = word.charAt(1) - 'a';
+            if (counting[b][a] > 0) {
+                max += 4;
+                counting[b][a]--;
+            } else {
+                counting[a][b]++;
+            }
+        }
+        for (int i = 0; i < 26; i++) {
+            if (counting[i][i] > 0) {
+                max += 2;
+                break;
+            }
+        }
+        return max;
+    }
+}
+
+// Code Referenced: https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/discuss/2772074/Java-oror-Explained-in-Detailoror-Simple-and-Fast-Solutionoror-Counting-oror-Hash-Table-oror-Greedy
