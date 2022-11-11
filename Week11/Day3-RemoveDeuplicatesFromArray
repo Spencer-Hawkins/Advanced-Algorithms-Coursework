@@ -1,0 +1,30 @@
+//Problem:https://leetcode.com/problems/remove-duplicates-from-sorted-array
+
+
+/*
+Runtime: O(n)
+
+
+Space Complexity:O(n)
+
+
+general Explanation: Keep track of last location of value added to the array. If you find a value greater than that value, add it to the next position.
+
+*/
+
+
+
+class Solution {   
+    public int removeDuplicates(int[] nums) {
+       if(nums.length==0) return 0;
+        int i=0;
+        for(int num:nums){
+            if(i==0 || num>nums[i-1]){
+                nums[i++]=num;
+            }
+        }
+        return i;
+    }
+}
+
+
