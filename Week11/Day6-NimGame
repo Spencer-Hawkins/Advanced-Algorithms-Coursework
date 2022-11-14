@@ -1,0 +1,24 @@
+//Problem: https://leetcode.com/problems/nim-game
+
+
+/*
+
+Runtime: O(1)
+
+Space Complexity: O(1)
+
+General Explanation:  You have first move, anything under three you may remove the three remaining stones. If four stones exactly, no matter if you remove, one,
+                      two, or three stones, your opponent may finish removing the final stone. Opponent may do this for all multoples of four.
+
+*/
+
+
+class Solution {
+    public boolean canWinNim(int n) {
+        if(n%4==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+}
