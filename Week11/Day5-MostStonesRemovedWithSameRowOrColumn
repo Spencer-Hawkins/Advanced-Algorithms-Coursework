@@ -1,0 +1,44 @@
+//Problem:  
+
+
+/*
+
+Runtime: O(n) for each function call but up to O(n) times will dfs be called, worst case O(n^2)
+
+
+Space Complexity: Worst case call stack builds up to O(n^2) for graph with one component
+
+
+General Explanation:  A Union Find approach can also be utilized. This approach recognizes that the solution will ultimately be the number of nodes minus the
+                      number of components in the graph of the stones with edges connecting nodes in the same row or column. We begin with array of components
+                      and then use a DFS call to connect all of the stones to the current stone
+
+
+*/
+
+
+class Solution {
+    public int removeStones(int[][] stones) {
+      Set<int[]> visited=new HashSet<>();
+      int numOfIslands=0;
+      for(int[] s1:stones){
+          if(!visited.contains(s1)){
+              dfs(s1,visited,stones);
+              numOfIslands++;
+          }
+      }
+     return stones.length-numOfIslands;   
+    }
+    private void dfs(int[] s1, Set<int[]> visited, int[][] stones){
+     visited.add(s1);
+     for(int[] s2:stones){
+         if(!visited.contains(s2)){
+             if(s1[0]==s2[0] || s1[1]==s2[1]){
+               dfs(s2, visited, stones);  
+             }
+         }
+     }
+    }       
+}
+
+
