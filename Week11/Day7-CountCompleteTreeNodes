@@ -1,0 +1,19 @@
+//Problem: https://leetcode.com/problems/count-complete-tree-nodes/
+
+/*
+Runtime: O(n)
+
+Space Complexity: O(n)
+
+General Explanation:  If null, then you traveled past a leaf, if not null found node so return one and travel to children nodes. 
+                      Traveling to each node once is linear time so just travel to each node once.
+
+*/
+
+
+class Solution {
+    public int countNodes(TreeNode root) {
+        if(root==null){return 0;}
+        return 1+countNodes(root.left)+countNodes(root.right);
+    }
+}
