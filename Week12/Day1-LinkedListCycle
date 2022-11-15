@@ -1,0 +1,27 @@
+//Problem: https://leetcode.com/problems/linked-list-cycle/
+
+
+/*
+
+Runtime: O(n)
+
+Space Complexity: O(1)
+
+General Explanation:  1,000,000 is beyond the max value in supplied linked list. We set that in linked list at each value we traverse. We either find a null value or
+                      traverse to original point in list we began at.
+
+
+*/
+
+
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        while (head != null) {
+            if (head.val == 1_000_000) return true;
+            head.val = 1_000_000;
+            head = head.next;
+        }
+        return false;
+    }
+}
