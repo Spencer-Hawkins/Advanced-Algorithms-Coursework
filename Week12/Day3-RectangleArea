@@ -1,0 +1,42 @@
+//Problem:
+
+
+/*
+
+Time Complexity: O(1)
+
+Space Complexity: O(1)
+
+General Explanation:  L*W, use given coordinates to find a1 and a2 for area of two given rectangles. We then find area of intersection by finding the max of the 
+                      back two corners on each triangle as well as the min of the front two points. We then find the length and width of this hypothetical 
+                      intersecting rectangle. We can check if it is non-existent if it has a negative width, height, or area.
+
+
+*/
+
+
+
+class Solution {
+    public int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
+        int a1=(ax2-ax1)*(ay2-ay1);//area of rectangle 1
+        int a2=(bx2-bx1)*(by2-by1);//area of rectangle 2
+
+        //co-ordinates of intersecting rectangle
+        int x5 = Math.max(ax1, bx1);
+        int y5 = Math.max(ay1, by1);
+        int x6 = Math.min(ax2, bx2);
+        int y6 = Math.min(ay2, by2);
+
+        int x=x6-x5;
+        int y=y6-y5;
+        int a3=x*y;//area of intersecting rectangle
+        if(x<0 || y<0){//means both rectangle don't intersects
+            a3=0;
+        }
+        
+        return a1+a2-a3;
+    }
+}
+
+
+//Code Referenced: https://leetcode.com/problems/rectangle-area/discuss/2822607/Java-Solution-oror-faster-than
