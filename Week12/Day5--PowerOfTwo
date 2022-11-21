@@ -1,0 +1,32 @@
+//Problem: https://leetcode.com/problems/power-of-two/discuss/2579875/100-fastest0msone-line-solution.
+
+
+/*
+
+Time Complexity:O(1)
+
+Space Complexity: O(1)
+
+
+General Explanation:  All powers of two in binary are a 1 followed by all zeros. If you use the bitwise operator & with n-1, they should share no values in 
+                      common since 1 value below a 1 followed by all zeroes would be a zero followed by only ones. Follow the reference at the bottom for a
+                      an ilustration.
+
+
+*/
+
+
+
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if(n<1) return false;
+        if((n&(n-1))==0) return true ;
+     return false;
+}
+}
+
+
+
+
+//Code Referenced: https://leetcode.com/problems/power-of-two/discuss/2579875/100-fastest0msone-line-solution.
