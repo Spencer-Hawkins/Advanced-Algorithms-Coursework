@@ -1,0 +1,39 @@
+//Problem:  https://leetcode.com/problems/swap-nodes-in-pairs/
+
+
+/*
+
+
+Time Complexity: O(n)
+
+
+Space Complexity: O(1) per call, but call stack of size, O(n)
+
+
+General Explanation:  We use recursive function to switch Nodes in pairs of two. Switch two at a time then make recursive call to switch next two.  
+                      Save node after current pair (headNextNext) for simplicity sake. We return once weve made is past the last pair. This is when
+                      head == null or head.next == null.
+
+
+*/
+
+
+
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode headNextNext = head.next.next;
+        
+        ListNode curHead = head;
+        ListNode newHead = head.next;
+        
+        newHead.next=curHead;
+        
+        newHead.next.next = swapPairs(headNextNext);
+            
+        return newHead;
+    }
+}
