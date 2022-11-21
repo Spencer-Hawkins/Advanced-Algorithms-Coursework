@@ -1,0 +1,51 @@
+//Problem: https://leetcode.com/problems/nearest-exit-from-entrance-in-maze
+
+
+/*
+
+Time Complexity: O(n*m), Worst case starts from center of grid and travels out in each direction towards the edge of the maze
+
+
+Space Complexity: O(n*m), for each iteration, there are potential for four more values to be added to the queue. All values for maze are changed
+                  in place, only the queue scales in size
+
+
+Gneral Explanation: BFS -- On each iteration, we take one step in every possible direction. We add one to our steps taken. If we ever run out of steps to take
+                    (queue is empty) then we return -1 since we have failed. We know current step is not valid if we step onto brick wall in maze or if we step 
+                    outside the boundary
+
+
+*/
+
+
+
+class Solution {
+    public int nearestExit(char[][] maze, int[] entrance) {
+        int m = maze.length;
+        int n = maze[0].length;
+        int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(entrance);
+        maze[entrance[0]][entrance[1]] = '+';
+        int steps = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                int[] cur = q.poll();
+                for (int[] dir : dirs) {
+                    int x = cur[0] + dir[0];
+                    int y = cur[1] + dir[1];
+                    if (x < 0 || x >= m || y < 0 || y >= n || maze[x][y] == '+') continue;
+                    if (x == 0 || x == m - 1 || y == 0 || y == n - 1) return steps + 1;
+                    q.offer(new int[]{x, y});
+                    maze[x][y] = '+';
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+}
+
+
+//Code Referenced: https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/discuss/2835258/Java-Solution
