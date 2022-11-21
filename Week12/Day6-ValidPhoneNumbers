@@ -1,0 +1,22 @@
+//Problem: https://leetcode.com/problems/valid-phone-numbers
+
+
+
+/*
+Time Complexity: O(n) length of text file
+
+Space Complexity: O(1)
+
+
+General Explanation:  Solution must be a bash script. Grep commands search for matchest to a string in a text file. It searches for matches 
+                      in regular expressions. You can learn more about the format for regular expressions from the links below
+
+
+*/
+
+
+grep -e "^[0-9]\{3\}\-[0-9]\{3\}\-[0-9]\{4\}$" -e "^([0-9]\{3\}) [0-9]\{3\}\-[0-9]\{4\}$" file.txt
+
+
+
+//Code Referenced: https://leetcode.com/problems/valid-phone-numbers/discuss/2254239/(BASH)-simple-regular-expression-with-explanation.  ,  https://www.networkworld.com/article/2693361/unix-tip-using-bash-s-regular-expressions.html
