@@ -1,0 +1,52 @@
+//Problem: https://leetcode.com/problems/perfect-squares/
+
+Problem:
+
+/*
+
+Time Complexity: O(n)
+
+
+Space Complexity: O(n)
+
+
+Gneral Explanation: DP approach. We begin by constructing array of squares up to the value of n. We then create DP value up to each value i
+                    less than n. This value can be found stored at dp[i] or 1+ the last valid square to have an input in the array. We only iterate in 
+                    j up to values less than or equal to i, so we will never access a negative index. We also fill dp array with Integer.MaxValue so any
+                    value we add will be lower than the default.
+
+
+*/
+
+
+
+
+class Solution {
+    public int numSquares(int n) {
+        List<Integer> squares = new ArrayList<>();
+        int cur = 1;
+        
+        while(Math.pow(cur, 2) <= n){
+            squares.add( (int) Math.pow(cur++, 2));
+        }
+        
+        int[] dp = new int[n+1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0]=0;
+        
+        for(int i=1; i<n+1; i++){
+            
+            for(int j=0; j<squares.size() && squares.get(j)<=i ; j++){
+                dp[i] = Math.min(dp[i], 1 + dp[i-squares.get(j)]);
+            }
+        }
+
+    
+    return dp[n];    
+                        
+}
+                             
+}
+
+
+// Code Referenced: https://leetcode.com/problems/perfect-squares/discuss/2838778/Java-or-Intuitive-DP-or-Explained
