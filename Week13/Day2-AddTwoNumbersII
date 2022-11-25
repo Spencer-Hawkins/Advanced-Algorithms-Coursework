@@ -1,0 +1,46 @@
+//Problem:
+
+
+
+/*
+
+Time Complexity: O(n+m)
+
+Space Complexity: O(n+m)
+
+General Explanation:  Fill the two ListNodes into Stacks/Dequeus to reverse their orders. Next, begin removing values from the stacks until
+                      both are empty and adding the values from the stack. Save the new node to become the previous to set it as the next node for the 
+                      new node formed in the next iteration. Repeat until both stacks are empty.
+
+
+*/
+
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Deque<Integer> stk1=new ArrayDeque<>();
+        Deque<Integer> stk2=new ArrayDeque<>();
+        while(l1!=null){
+            stk1.push(l1.val);
+            l1=l1.next;
+           }
+        while(l2!=null){
+            stk2.push(l2.val);
+            l2=l2.next;
+        }
+        int carry=0;
+        ListNode curr=null;
+        ListNode prev=null;
+        while(stk1.size()>0||stk2.size()>0||carry>0){
+            int x=stk1.size()==0?0:stk1.pop();
+            int y=stk2.size()==0?0:stk2.pop();
+            int sum=x+y+carry;
+            carry=sum/10;
+            curr=new ListNode(sum%10);
+            curr.next=prev;
+            prev=curr;
+        }
+        
+        return prev;
+          
+}
