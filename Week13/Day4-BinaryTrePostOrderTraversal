@@ -1,0 +1,39 @@
+//Problem: https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+
+
+
+/*
+
+Time Complexity: O(n)
+
+
+Space Complexity: O(n)
+
+
+General Explanation:  Recurse down from root node. Post Order Traversal is down first to bottom left, then over to the right on that level, and then parent 
+                      value. Add values to the ans array and return after recursion is finished.
+
+
+*/
+
+
+
+
+
+class Solution {
+    List<Integer> ans = new ArrayList<>();
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        traverse(root);
+        return ans;
+    }
+
+    public void traverse(TreeNode root) {
+        if (root == null) return;
+        
+        traverse(root.left);
+        traverse(root.right); 
+        ans.add(root.val);
+    }
+}
