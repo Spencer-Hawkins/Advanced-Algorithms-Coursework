@@ -1,0 +1,53 @@
+//Problem: https://leetcode.com/problems/number-of-unequal-triplets-in-array
+
+
+
+/*
+
+Time Complexity: O(n^3)
+
+
+Space Complexity: O(1)
+
+
+General Explanation: Triple for loop brute force solution. If any of the values pulled from the array are equal, continue, else increment count
+                     then return count at end of the loop.
+
+
+
+*/
+
+
+class Solution {    
+    public int unequalTriplets(int[] nums) {
+        int n = nums.length;
+        int count = 0;
+        
+        for(int i=0; i<n; i++){
+            int first = nums[i];
+            
+            for(int j=i+1; j<n; j++){
+                int second = nums[j];
+                if(second==first){ // skip
+                    continue;
+                }
+        
+                for(int k=j+1; k<n; k++){
+                    int third = nums[k];
+                    
+                    if(third==first || third==second){ //skip
+                        continue;
+                    } else{
+                        count++;
+                    }
+                }
+                
+            }
+        }
+        
+        return count;
+    }
+}
+
+
+//Code Referenced: https://leetcode.com/problems/number-of-unequal-triplets-in-array/discuss/2832899/Java-or-2-solutions
