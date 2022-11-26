@@ -65,3 +65,5 @@ class Solution {
 
 
 //Code Referenced: https://leetcode.com/problems/sum-of-subarray-minimums/discuss/2846883/Java-or-Monotonic-Stack-%2B-Dynamic-Programming-Explained
+//Additional Resources:
+	// https://www.youtube.com/watch?v=J1rJ3IcwhKI
