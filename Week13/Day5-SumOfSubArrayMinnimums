@@ -1,0 +1,67 @@
+//Problem: https://leetcode.com/problems/sum-of-subarray-minimums/
+
+
+/*
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+General Explanation:  Save int value as MOD for if needed later. Initialize arrays and queues. We then construct our left array and right array to store the number
+                      of elements that are strictly greater than it either to the left and the right. We initialize count to be one at each stage of for loop
+                      We check our queue to see if there is a key in it that is smaller than the current value in arr, if so we add it's count to the current count
+                      if not, that means that value in the queue is smaller than our current one and would be used in all subarrays to the left-- count remains at one
+                      Add the new Pair to our queue and set count to the current index in the array. Repeat to construct the other array.
+                      We can construct our final value by multiplying index i in left and right arrays by one another and then modulo with our initial MOD value
+
+
+*/
+
+
+
+
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+	int MOD = (int) Math.pow(10, 9) + 7;
+
+	int[] leftArr = new int[arr.length];
+	int[] rightArr = new int[arr.length];
+
+	ArrayDeque<Pair<Integer, Integer>> leftStack = new ArrayDeque<>();
+	ArrayDeque<Pair<Integer, Integer>> rightStack = new ArrayDeque<>();
+
+	for (int i = 0; i < arr.length; i++) { // Fill Left Array
+		int count = 1;
+
+		while (!leftStack.isEmpty() && leftStack.peek().getKey() > arr[i]) {
+			count += leftStack.peek().getValue();
+			leftStack.pop();
+		}
+
+		leftStack.push(new Pair(arr[i], count));
+		leftArr[i] = count;
+	}
+
+	for (int i = arr.length - 1; i >= 0; i--) { // Fill Right Array
+		int count = 1;
+
+		while (!rightStack.isEmpty() && rightStack.peek().getKey() >= arr[i]) {
+			count += rightStack.peek().getValue();
+			rightStack.pop();
+		}
+
+		rightStack.push(new Pair(arr[i], count));
+		rightArr[i] = count;
+	}
+
+	long ans = 0;
+
+	for (int i = 0; i < arr.length; i++) 
+		ans = (ans + (long) arr[i] * leftArr[i] * rightArr[i]) % MOD;
+
+	return (int) ans;
+}
+}
+
+
+
+//Code Referenced: https://leetcode.com/problems/sum-of-subarray-minimums/discuss/2846883/Java-or-Monotonic-Stack-%2B-Dynamic-Programming-Explained
