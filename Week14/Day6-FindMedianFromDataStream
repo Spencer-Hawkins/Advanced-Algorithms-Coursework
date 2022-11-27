@@ -1,0 +1,50 @@
+//Problem: https://leetcode.com/problems/find-median-from-data-stream
+
+
+/*
+
+Time Complexity: O(n^2)
+
+
+Space Complexity: O(n)
+
+
+General Explanation:  Median Finder method instantiates new ArrayList, addNum inserts new value in ascending order into arraylist, find Median pulls middle 
+                      value if odd sized array and two that split middle in even sized and finds their median.
+
+
+*/
+
+
+
+class MedianFinder {
+    List<Integer> list; 
+    public MedianFinder() {
+        this.list = new ArrayList<Integer>();
+    }
+    
+    public void addNum(int num) {
+        if(list.size() == 0) list.add(0, num);  
+        else{
+            int i=0;
+            while(list.get(i) <= num && i<list.size()-1) i++;
+            //*****The reason why I didn't traversed till the last index was to escape from IndexOutOfBounds Error*****
+            if(list.get(i) <= num) list.add(i+1, num);
+            else list.add(i, num);
+        }
+    }
+    
+    public double findMedian() {
+        int n = list.size();
+        if(n == 0) return 0;
+        if(n%2 == 1) return list.get(n/2);
+        return (double)((list.get(n/2) + list.get(n/2 - 1)))/2;
+    }
+}
+
+
+
+
+
+
+//Code Referenced: https://leetcode.com/problems/find-median-from-data-stream/discuss/2805420/Java-**Beats-96-Memory**oror-Easiest-and-Short-Implementation-oror-Explained
