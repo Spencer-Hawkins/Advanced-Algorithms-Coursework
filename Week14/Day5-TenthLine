@@ -1,0 +1,20 @@
+//Problem: https://leetcode.com/problems/tenth-line
+
+
+/*
+Time Complexity: O(1)
+
+Space Complexity: O(1)
+
+
+General Explanation: NR counts the number of input records/lines, NR==10 is the conditional statement for the tenth line of the file.
+
+*/
+
+
+
+awk 'NR == 10' file.txt
+
+
+//Source Refenced: https://phoenixnap.com/kb/awk-command-in-linux
+//Code Referenced: https://leetcode.com/problems/tenth-line/discuss/2693040/4-Solutions-or-Easy-Understanding
