@@ -1,0 +1,49 @@
+//Problem: https://leetcode.com/problems/arithmetic-slices-ii-subsequence/
+
+
+/*
+
+Time Complexity: O(n^2)
+
+
+Space Complexity: O(n^2)
+
+
+General Explanation:  Double For Loop with DP array of HashMaps. We store differences for each index in array hashmaps. One HashMap for each value in array
+                      since each element can have different number of subsequences with other elements.
+                      The number of subsequences to add is the current number found at the forward most index. We then store the combined number of sequences
+                      plus one in the back index plus one
+
+
+
+*/
+
+
+
+class Solution {
+	public int numberOfArithmeticSlices(int[] arr) {
+		int n = arr.length;
+		HashMap<Integer, Integer>[] map = new HashMap[n];
+		for (int i = 0; i < n; i++) {
+			map[i] = new HashMap<>();
+		}
+		int ans = 0;
+		for (int i = 1; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				long cd = (long) arr[i] - (long) arr[j];
+				if (cd <= Integer.MIN_VALUE || cd >= Integer.MAX_VALUE)
+					continue;
+				int asj = map[j].getOrDefault((int) cd, 0);
+				int asi = map[i].getOrDefault((int) cd, 0);
+				ans += asj;
+				map[i].put((int) cd, asi + asj + 1);
+			}
+		}
+		return ans;
+	}
+}
+
+
+
+//Additional Resource: https://www.youtube.com/watch?v=tVByevGUxbU
+//Code Referenced: https://leetcode.com/problems/arithmetic-slices-ii-subsequence/discuss/2852768/JAVA-Easy-to-understand-java-solution.
