@@ -1,0 +1,30 @@
+//Problem: 
+
+
+/*
+Time Complexity: O(n)
+
+Space Complexity: O(1)
+
+General Explanation: Two Pointers. If pointer for substring reaches end of string at any point return true, if it doesn't by end of for loop, return false.
+
+
+*/
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {    
+        int sIndex =0;
+        
+        for(int i=0; i<t.length(); i++){
+            if(sIndex==s.length())return true;
+            
+            if(t.charAt(i)==s.charAt(sIndex)) sIndex++;
+            
+        }
+        if(sIndex==s.length()) return true;
+        return false;
+        
+        
+
+    }
+}
