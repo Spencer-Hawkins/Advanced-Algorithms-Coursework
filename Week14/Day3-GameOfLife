@@ -1,0 +1,53 @@
+//Problem: https://leetcode.com/problems/game-of-life/submissions/
+
+
+/*
+Time Complexity: O(n*m) --iterate through eight cells around each cell once for DP array, and then iterate over DP array once to construct final answer
+
+Space Complexity: O(n*m) construct dp array equal to size of input board
+
+
+General Explanation:  Construct DP board by counting how many adjacent cells are "alive" then iterate over original board and compare count of live neighbors
+                      with current value in the cell to determine if the cell lives on to the next stage or not.
+
+*/
+
+
+class Solution {
+    public void gameOfLife(int[][] board) {
+        //construct dp board from which to modify original board
+        int[][] dp = new int[board.length][board[0].length];
+        int[][] directions = {{-1,-1}, {-1,0}, {-1, 1}, {0,-1}, {0,1},{1,-1},{1,0},{1,1}};
+        //iterate over each cell in board and count number of live neighbors
+        for(int i=0; i<board.length; i++){
+            for(int j=0; j<board[0].length; j++){
+                if(board[i][j]==1){
+                    for(int[] dir: directions){
+                        if(i+dir[0]<board.length && (j+dir[1])<board[0].length && i+dir[0]>=0 && (j+dir[1])>=0){
+                           
+                            dp[i+dir[0]][j+dir[1]]+=1;
+                        }
+                    }
+                }
+            }
+        }
+        
+        for(int i=0; i<board.length; i++){
+            for(int j=0; j<board[0].length; j++){
+                if(board[i][j]==1 && dp[i][j]<2){
+                    board[i][j]=0;
+                }
+                if(board[i][j]==1 && dp[i][j]>3){
+                    board[i][j]=0;
+                }
+                if(board[i][j]==0 && dp[i][j]==3){
+                    board[i][j]=1;
+                }
+            }
+        }
+                
+        
+    }
+}
+
+
