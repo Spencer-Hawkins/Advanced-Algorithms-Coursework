@@ -1,0 +1,49 @@
+//Problem: https://leetcode.com/problems/word-pattern
+
+
+/*
+
+Time Complexity: O(n)
+
+Space Complexity: O(2n) construct two maps that grow to size n
+
+General Explanation: Each time we come to new word key pair we need to check for two things:
+                        1. whether or not we've matched this letter with a different word
+                        2. XOR if this word has been matched with a different letter, 
+                     if either condition is true, return false. Otherwise, continue through word and if end is reached, return true. 
+
+*/
+
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String[] words = s.split(" ");
+        if (words.length != pattern.length()) return false;
+
+        Map<Character, String> map1 = new HashMap<>();
+        Map<String, Boolean> map2 = new HashMap<>();
+
+        for (int i = 0; i < pattern.length(); i++) {
+            char S = pattern.charAt(i);
+            String word = words[i];
+
+            if (map1.containsKey(S)) {
+                if (!map1.get(S).equals(word)) return false;
+            }
+
+            else {
+                if (map2.containsKey(word)) return false;
+                else {
+                    map1.put(S, word);
+                    map2.put(word, true);
+                }
+            }
+        }
+
+        return true;
+ 
+    }
+}
+
+
+
+//Code Referenced: https://leetcode.com/problems/word-pattern/discuss/2773533/JAVA-SOLUTION
