@@ -1,0 +1,32 @@
+//Problem:
+
+
+/*
+
+Time Complexity: O(n^2)
+
+Space Complexity: O(n^2)
+
+Genera Explanation: Recursive Base Case is when index is the end of the aray. If target is 0, then we reached our target and return 1 for one more path 
+                    to valid solution, else return 0 because no more paths were found.
+
+*/
+
+
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        return findTargetSumWays(nums, target, 0);
+    }
+    
+    public int findTargetSumWays(int[] nums, int target, int index) {
+        if (index==nums.length){
+            if(0==target){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        
+        return findTargetSumWays(nums, target+nums[index], index+1)+findTargetSumWays(nums, target-nums[index], index+1);
+    }
+}
