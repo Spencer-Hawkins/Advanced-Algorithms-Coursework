@@ -1,0 +1,42 @@
+//Problem: https://leetcode.com/problems/arithmetic-slices/
+
+
+/*
+Time Complexity: O(n)
+
+
+Space Complexity: O(1) --used input array as DP array
+
+
+General Explanation: Iterate over array, if difference between next element and previous element are same, then sequence is found, if sequence is continued
+                     then number of new sequences is equal to previous number created +1 which we can find from dp array, add this new number to result.
+
+
+*/
+
+
+
+class Solution {
+    public int numberOfArithmeticSlices(int[] nums) {
+        if(nums.length<3){return 0;}
+        int dif=nums[1]-nums[0];
+        int toReturn=0;
+
+        nums[0]=0;
+        for(int i=2; i<nums.length; i++){
+            int temp= nums[i]-nums[i-1];
+            if(temp==dif){
+                nums[i-1]=nums[i-2]+1;
+                toReturn+=nums[i-1];
+            }else{
+                nums[i-1]=0;
+                dif=temp;
+            }
+        }
+        
+        return toReturn;
+        
+    }
+}
+
+
