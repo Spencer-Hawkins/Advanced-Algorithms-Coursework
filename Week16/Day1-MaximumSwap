@@ -1,0 +1,45 @@
+//Problem:  https://leetcode.com/problems/maximum-swap
+
+
+/*
+
+Time Complexity: O(n^2)
+
+Space Complexity: O(n)
+
+General Explanation:  Change int to char array
+                      Create buckets to store if that digit is found in the number and then store the farthest index in the array that integer occurs at
+                      this is done naturally though for loop where index for repeat values will be modified.
+                      Iterate in double for loop through char array and buckets to see if higher value int is stored later in array than at current index
+                      in num, if so, make the swap and return
+                      if you make it through for loop, return original number
+                      
+
+*/
+
+class Solution {
+    public int maximumSwap(int num) {
+        char[] digits = Integer.toString(num).toCharArray();
+        
+        int[] buckets = new int[10];
+        for (int i = 0; i < digits.length; i++) {
+            buckets[digits[i] - '0'] = i;
+        }
+        
+        for (int i = 0; i < digits.length; i++) {
+            for (int k = 9; k > digits[i] - '0'; k--) {
+                if (buckets[k] > i) {
+                    char tmp = digits[i];
+                    digits[i] = digits[buckets[k]];
+                    digits[buckets[k]] = tmp;
+                    return Integer.valueOf(new String(digits));
+                }
+            }
+        }
+        
+        return num;
+    }
+}
+
+
+//Code Referenced: https://leetcode.com/problems/maximum-swap/discuss/107068/Java-simple-solution-O(n)-time
